@@ -9,8 +9,9 @@ services:
     volumes:
       - ${APPDATA}/postgresql/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
     ports:
       - 5432:5432
 
@@ -35,9 +36,9 @@ services:
     ports:
      - 8998:3000
     environment:
-      DB_TYPE: postgres
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_USER: ${WIKIJS_USER}
-      DB_PASS: ${WIKIJS_PASS}
-      DB_NAME: wikijs
+     - DB_TYPE=postgres
+     - DB_HOST=postgres
+     - DB_PORT=5432
+     - DB_NAME=${DB_PASS}
+     - DB_USER=${DB_USER}
+     - DB_PASS=${DB_PASS}
