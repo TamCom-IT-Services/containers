@@ -1,0 +1,43 @@
+version: "3"
+services:
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    container_name: postgres
+    hostname: postgres
+    volumes:
+      - ${APPDATA}/postgresql/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    container_name: pgadmin
+    hostname: pgadmin
+    ports:
+      - 5050:80
+    volumes:
+      - ${APPDATA}/pgadmin:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+
+  wikijs:
+    image: requarks/wiki:2
+    restart: unless-stopped
+    container_name: wikijs
+    hostname: wikijs
+    ports:
+     - 8998:3000
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${WIKIJS_USER}
+      DB_PASS: ${WIKIJS_PASS}
+      DB_NAME: wikijs
