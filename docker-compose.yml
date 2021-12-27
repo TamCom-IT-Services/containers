@@ -1,0 +1,11 @@
+version: "3"
+services:
+  app:
+    image: ./.
+    restart:
+    container_name:
+    hostname:
+    volumes:
+    network_mode: bridge
+    environment:
+    
